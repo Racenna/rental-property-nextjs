@@ -1,4 +1,3 @@
-import Link from "next/link";
 // components
 import InfoBox from "./InfoBox";
 
