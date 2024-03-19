@@ -1,11 +1,15 @@
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import connectDatabase from "@/config/connectDatabase";
+import Property from "@/lib/models/Property";
 
+// GET /api/properties
 export const GET = async (request: NextApiRequest) => {
   try {
     await connectDatabase();
 
-    return new Response(JSON.stringify({ message: "Hello world" }), {
+    const properties = await Property.find({});
+
+    return new Response(JSON.stringify(properties), {
       status: 200,
     });
   } catch (error) {

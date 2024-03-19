@@ -1,10 +1,25 @@
-import properties from "@/properties.json";
+import { IProperty } from "@/lib/models/Property";
 import PropertyCard from "../PropertyCard";
-import { Property } from "@/lib/definitions";
 import Link from "next/link";
 
-const HomeProperties = () => {
-  const recentProperties = properties
+const fetchProperties = async (): Promise<IProperty[] | undefined> => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const HomeProperties = async () => {
+  const properties = await fetchProperties();
+
+  const recentProperties = (properties || [])
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
 
@@ -21,8 +36,8 @@ const HomeProperties = () => {
             ) : (
               recentProperties.map((property) => (
                 <PropertyCard
-                  key={property._id}
-                  property={property as Property}
+                  key={property._id.toString()}
+                  property={property}
                 />
               ))
             )}

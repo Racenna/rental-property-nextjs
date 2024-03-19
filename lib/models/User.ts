@@ -1,15 +1,16 @@
 import { Schema, Types, Document, Model, model, models } from "mongoose";
 
-interface IUserDocument extends Document {
+interface IUser {
+  _id: Types.ObjectId;
   email: string;
   username: string;
   image: string;
   bookmarks: Types.ObjectId;
 }
 
-type UserModel = Model<IUserDocument>;
+type UserModel = Model<IUser>;
 
-const UserSchema = new Schema<IUserDocument>(
+const UserSchema = new Schema<IUser>(
   {
     email: {
       type: String,
@@ -35,6 +36,6 @@ const UserSchema = new Schema<IUserDocument>(
   }
 );
 
-const User: UserModel = models.User || model<IUserDocument>("User", UserSchema);
+const User: UserModel = models.User || model<IUser>("User", UserSchema);
 
 export default User;

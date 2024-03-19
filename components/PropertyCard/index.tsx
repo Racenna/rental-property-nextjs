@@ -1,4 +1,4 @@
-import { Property } from "@/lib/definitions";
+import { IProperty } from "@/lib/models/Property";
 import Image from "next/image";
 import Link from "next/link";
 // icons
@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 type Props = {
-  property: Property;
+  property: IProperty;
 };
 
 const PropertyCard = ({ property }: Props) => {

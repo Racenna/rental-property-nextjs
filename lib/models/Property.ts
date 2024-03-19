@@ -1,11 +1,12 @@
-import { Schema, Types, Document, Model, model, models } from "mongoose";
+import { Schema, Types, Model, model, models } from "mongoose";
 import {
   PropertyLocation,
   PropertyRate,
   PropertySellerInfo,
 } from "@/lib/definitions";
 
-interface IPropertyDocument extends Document {
+export interface IProperty {
+  _id: Types.ObjectId;
   owner: Types.ObjectId;
   name: string;
   type: string;
@@ -19,11 +20,13 @@ interface IPropertyDocument extends Document {
   seller_info: PropertySellerInfo;
   images: string[];
   is_featured: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
-type PropertyModel = Model<IPropertyDocument>;
+type PropertyModel = Model<IProperty>;
 
-const PropertySchema = new Schema<IPropertyDocument>(
+const PropertySchema = new Schema<IProperty>(
   {
     owner: {
       type: Schema.Types.ObjectId,
@@ -110,6 +113,6 @@ const PropertySchema = new Schema<IPropertyDocument>(
 );
 
 const Property: PropertyModel =
-  models.Property || model<IPropertyDocument>("Property", PropertySchema);
+  models.Property || model<IProperty>("Property", PropertySchema);
 
 export default Property;
