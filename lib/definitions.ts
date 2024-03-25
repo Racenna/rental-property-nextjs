@@ -6,9 +6,9 @@ export type PropertyLocation = {
 };
 
 export type PropertyRate = {
-  weekly: number;
-  monthly: number;
-  nightly: number;
+  weekly?: number;
+  monthly?: number;
+  nightly?: number;
 };
 
 export type PropertySellerInfo = {

@@ -1,25 +1,11 @@
-import { IProperty } from "@/lib/models/Property";
 import PropertyCard from "../PropertyCard";
 import Link from "next/link";
-
-const fetchProperties = async (): Promise<IProperty[] | undefined> => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`);
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+import { fetchProperties } from "@/lib/utils/requests";
 
 const HomeProperties = async () => {
   const properties = await fetchProperties();
 
-  const recentProperties = (properties || [])
+  const recentProperties = properties
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
 
